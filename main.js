@@ -94,6 +94,11 @@ $(document).ready(function () {
             }
         }
 
+        for (const salesman_data in vendite_percentuali) {
+            var numero = (vendite_percentuali[salesman_data]).toFixed(2);
+            vendite_percentuali[salesman_data] = numero;
+        }
+
         console.log(totale);
 
         console.log(vendite_percentuali);
