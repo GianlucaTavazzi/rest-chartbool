@@ -3,7 +3,20 @@ $(document).ready(function () {
         'url': 'http://157.230.17.132:4030/sales',
         'method': 'GET',
         'success': function(data) {
-            var vendite_mensili = {};
+            var vendite_mensili = {
+            'January': 0,
+            'February': 0,
+            'March': 0,
+            'April': 0,
+            'May': 0,
+            'June': 0,
+            'July': 0,
+            'August': 0,
+            'September': 0,
+            'October': 0,
+            'November': 0,
+            'December': 0,
+        };
 
             for (var i = 0; i < data.length; i++) {
                 var dati = data[i];
@@ -11,7 +24,6 @@ $(document).ready(function () {
                 var amount = dati.amount;
 
                 var mese = moment(month_data, "DD-MM-YYYY");
-                console.log(mese.format('MMMM'));
 
                 if(!vendite_mensili.hasOwnProperty(mese.format('MMMM'))) {
                     vendite_mensili[mese.format('MMMM')] = amount;
@@ -74,15 +86,16 @@ $(document).ready(function () {
                 var amount = dati.amount;
 
                 if(!vendite_percentuali.hasOwnProperty(salesman_data)) {
-                    vendite_percentuali[salesman_data] = Math.floor(amount*100/totale);
+                    vendite_percentuali[salesman_data] = amount*100/totale;
                 } else {
-                    vendite_percentuali[salesman_data] += Math.floor(amount*100/totale);
+                    vendite_percentuali[salesman_data] += amount*100/totale;
                 }
             }
 
             console.log(totale);
 
             console.log(vendite_percentuali);
+
             var chiavi = Object.keys(vendite_percentuali);
             var valori = Object.values(vendite_percentuali);
 
@@ -109,15 +122,7 @@ $(document).ready(function () {
                         borderWidth: 1
                     }]
                 },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
+                options: {}
             });
         },
         'error': function() {
