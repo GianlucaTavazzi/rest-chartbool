@@ -1,15 +1,21 @@
 $(document).ready(function () {
-    $.ajax({
-        'url': 'http://157.230.17.132:4030/sales',
-        'method': 'GET',
-        'success': function(data) {
-            monthrevenue(data);
-            percentagerevenue(data);
-        },
-        'error': function() {
-            console.log('errore');
-        }
-    });
+
+    chiamata_ajax()
+
+    function chiamata_ajax() {
+        $.ajax({
+            'url': 'http://157.230.17.132:4030/sales',
+            'method': 'GET',
+            'success': function(data) {
+                console.log(data);
+                monthrevenue(data);
+                percentagerevenue(data);
+            },
+            'error': function() {
+                console.log('errore');
+            }
+        });
+    }
 
     function monthrevenue(data) {
         var vendite_mensili = {
@@ -132,5 +138,36 @@ $(document).ready(function () {
             options: {}
         });
     }
+
+
+    $('button').click(function() {
+        var selezione_nome = $('.name-picker').val();
+        var selezione_mese = $('.month-picker').val();
+        var selezione_amount = parseInt($('input').val());
+
+        if ((selezione_mese !== '') && (selezione_nome !== '') && (selezione_amount > 0)){
+            console.log(selezione_mese);
+            console.log(selezione_amount);
+            var selezione_data = moment().month(selezione_mese).format("MM");
+            var data_selezionata_uniformata = ('01/'+ selezione_data  + '/2017')
+
+            $.ajax({
+                'url': 'http://157.230.17.132:4030/sales',
+                'method': "POST",
+                'data':{
+                    "salesman": selezione_nome,
+                    'amount': parseInt(selezione_amount),
+                    "date": data_selezionata_uniformata,
+                },
+                'success': chiamata_ajax(),
+                'error': function() {
+                    console.log('errore');
+                }
+            });
+        }else {
+            alert('Non hai inserito i dati corretti')
+        }
+
+    })
 
 })

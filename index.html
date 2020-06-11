@@ -9,10 +9,38 @@
         <script src="https://momentjs.com/downloads/moment.js" charset="utf-8"></script>
     </head>
     <body>
-        <div class="chart-container">
-            <canvas id="myChartuno" class="chart"></canvas>
-            <canvas id="myChartdue" class="chart"></canvas>
-        </div>
+        <header>
+            <select class="name-picker" name="">
+                <option value="">-- Seleziona nome --</option>
+                <option value="Marco">Marco</option>
+                <option value="Giuseppe">Giuseppe</option>
+                <option value="Riccardo">Riccardo</option>
+                <option value="Roberto">Roberto</option>
+            </select>
+            <select class="month-picker" name="">
+                <option value="">-- Seleziona mese --</option>
+                <option value="Gennaio">Gennaio</option>
+                <option value="Febbraio">Febbraio</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Aprile">Aprile</option>
+                <option value="Maggio">Maggio</option>
+                <option value="Giugno">Giugno</option>
+                <option value="Luglio">Luglio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Settembre">Settembre</option>
+                <option value="Ottobre">Ottobre</option>
+                <option value="Novembre">Novembre</option>
+                <option value="Dicembre">Dicembre</option>
+            </select>
+            <input type="text" name="" value="" placeholder="Inserisci amount">
+            <button type="button" name="button">Inserisci</button>
+        </header>
+        <main>
+            <div class="chart-container">
+                <canvas id="myChartuno" class="chart"></canvas>
+                <canvas id="myChartdue" class="chart"></canvas>
+            </div>
+        </main>
 
         <script src="main.js" charset="utf-8"></script>
     </body>
