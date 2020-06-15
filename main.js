@@ -36,20 +36,20 @@ $(document).ready(function () {
         for (var i = 0; i < data.length; i++) {
             var dati = data[i];
             var month_data = dati.date;
-            var amount = dati.amount;
+            var amount = parseInt(dati.amount);
 
             var mese = moment(month_data, "DD-MM-YYYY");
 
             if(!vendite_mensili.hasOwnProperty(mese.format('MMMM'))) {
-                vendite_mensili[mese.format('MMMM')] = amount;
+                vendite_mensili[mese.format('MMMM')] = parseInt(amount);
             } else {
-                vendite_mensili[mese.format('MMMM')] += amount;
+                vendite_mensili[mese.format('MMMM')] += parseInt(amount);
             }
         }
 
         console.log(vendite_mensili);
         var chiavi = Object.keys(vendite_mensili);
-        var valori = Object.values(vendite_mensili)
+        var valori = Object.values(vendite_mensili);
 
         var ctx = $('#myChartuno')[0].getContext('2d')
         var myChart = new Chart(ctx, {
@@ -85,13 +85,13 @@ $(document).ready(function () {
         var totale = 0;
         for (var i = 0; i < data.length; i++) {
             var dati = data[i];
-            var totale = totale + dati.amount;
+            var totale = totale + parseInt(dati.amount);
         }
 
         for (var i = 0; i < data.length; i++) {
             var dati = data[i];
             var salesman_data = dati.salesman;
-            var amount = dati.amount;
+            var amount = parseInt(dati.amount);
 
             if(!vendite_percentuali.hasOwnProperty(salesman_data)) {
                 vendite_percentuali[salesman_data] = amount*100/totale;
@@ -148,15 +148,15 @@ $(document).ready(function () {
         if ((selezione_mese !== '') && (selezione_nome !== '') && (selezione_amount > 0)){
             console.log(selezione_mese);
             console.log(selezione_amount);
-            var selezione_data = moment().month(selezione_mese).format("MM");
-            var data_selezionata_uniformata = ('01/'+ selezione_data  + '/2017')
+            var data_selezionata_uniformata = ('01/'+ selezione_mese  + '/2017');
+            console.log(data_selezionata_uniformata);
 
             $.ajax({
                 'url': 'http://157.230.17.132:4030/sales',
                 'method': "POST",
                 'data':{
                     "salesman": selezione_nome,
-                    'amount': parseInt(selezione_amount),
+                    'amount': selezione_amount,
                     "date": data_selezionata_uniformata,
                 },
                 'success': chiamata_ajax(),
